@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Yiisoft\Composer\Config;
 
-use Composer\Composer;
+use Composer\PartialComposer;
 use Composer\IO\IOInterface;
 use Dotenv\Dotenv;
 use Yiisoft\Composer\Config\Config\ConfigOutputFactory;
@@ -51,10 +51,10 @@ final class Plugin
     /**
      * Initializes the plugin object with the passed $composer and $io.
      *
-     * @param Composer $composer
+     * @param PartialComposer $composer
      * @param IOInterface $io
      */
-    public function __construct(Composer $composer, IOInterface $io)
+    public function __construct(PartialComposer $composer, IOInterface $io)
     {
         $baseDir = dirname($composer->getConfig()->get('vendor-dir')) . DIRECTORY_SEPARATOR;
         $this->builder = new Builder(new ConfigOutputFactory(), realpath($baseDir));
@@ -251,7 +251,7 @@ final class Plugin
         }
     }
 
-    private function collectPackages(Composer $composer): void
+    private function collectPackages(PartialComposer $composer): void
     {
         $vendorDir = $composer->getConfig()->get('vendor-dir');
         $rootPackage = $composer->getPackage();
